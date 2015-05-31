@@ -1,0 +1,29 @@
+{
+  "name": "indiehackfront",
+  "version": "0.1.0",
+  "description": "seed app for typescript and gulp",
+  "main": "index.js",
+  "repository": "https://github.com/mojzis/indiehackfront",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "gulp"
+  ],
+  "author": "mojzis",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp": "^3.8.11",
+    "gulp-batch": "^1.0.5",
+    "gulp-debug": "^2.0.1",
+    "gulp-inject": "^1.2.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-tslint": "^1.4.4",
+    "gulp-typescript": "^2.5.0",
+    "gulp-webserver": "^0.9.1"
+  }
+}
