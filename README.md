@@ -14,10 +14,10 @@
 - try `gulp help` to see other available tasks
 
 ### todo:
-- gulp
-	- gulp help
-	- merge js files into 1
-- bower
-- sass / less
-- bootstrap or alike ?
-- "biased" variants as branches (i.e. angular)
+- [ ] gulp
+	- [ ] gulp help
+	- [ ] merge js files into 1
+- [x] bower
+- [x] sass / less
+- [ ] bootstrap or alike ?
+- [ ] "biased" variants as branches (i.e. angular)

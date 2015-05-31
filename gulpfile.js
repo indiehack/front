@@ -3,10 +3,14 @@
 var gulp = require('gulp'),
     debug = require('gulp-debug'),
     inject = require('gulp-inject'),
+    concat = require('gulp-concat'),
     tsc = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     del = require('del'),
+    bower = require('gulp-bower'),
+    less = require('gulp-less'),
+    minifyCss = require('gulp-minify-css'),
     //batch = require('gulp-batch'),
     Config = require('./gulpfile.config');
 
@@ -82,12 +86,27 @@ gulp.task('assets', function() {
         .pipe(gulp.dest(config.public));
 });
 
+gulp.task('bower', function() {
+    return bower()
+        .pipe(gulp.dest(config.publicJsComponentsDir));
+});
+
+gulp.task('less', function () {
+    return gulp.src(config.allLessFiles)
+        .pipe(less())
+        .pipe(minifyCss())
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest(config.compiledCssDir));
+});
+
+
 gulp.task('watch', ['build'], function() {
     gulp.watch(config.allTypeScript, ['ts-lint', 'compile-ts', 'gen-ts-refs']);
+    gulp.watch(config.lessDir, ['less']);
     gulp.watch(config.assets, ['assets']);
 });
 
-gulp.task('build', [ 'ts-lint', 'compile-ts', 'assets']);
+gulp.task('build', ['bower', 'less', 'ts-lint', 'compile-ts', 'assets']);
 
 gulp.task('serve', ['watch'], function() {
 //    gulp.start();

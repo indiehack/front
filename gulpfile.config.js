@@ -9,6 +9,9 @@ var GulpConfig = (function () {
         this.tsOutputPath = this.public + '/js';
         this.allJavaScript = [this.source + '/js/**/*.js'];
         this.allTypeScript = this.sourceApp + '/**/*.ts';
+        this.publicJsComponentsDir = this.public + '/' + 'js_components';
+        this.allLessFiles = this.sourceApp + '/' + 'less/**/*.less';
+        this.compiledCssDir = this.public + '/css';
 
         this.typings = './tools/typings/';
         this.libraryTypeScriptDefinitions = './tools/typings/**/*.ts';
