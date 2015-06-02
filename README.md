@@ -16,7 +16,7 @@
 ### todo:
 - [ ] gulp
 	- [ ] gulp help
-	- [ ] merge js files into 1
+	- [x] merge js files into 1
 - [x] bower
 - [x] sass / less
 - [ ] bootstrap or alike ?
