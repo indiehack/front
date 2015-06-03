@@ -1,0 +1,17 @@
+{
+  "name": "front",
+  "version": "0.0.1",
+  "homepage": "https://github.com/indiehack/front",
+  "description": "Seed project",
+  "license": "MIT",
+  "dependencies" : {
+    "es5-shim" : "^4.1.4"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
