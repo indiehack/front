@@ -61,6 +61,7 @@ gulp.task('compile-ts', function () {
                            target: 'ES5',
                            declarationFiles: false,
                            noExternalResolve: true,
+                           sortOutput: true,
                            out : 'app.js'
                        }));
 
@@ -102,12 +103,12 @@ gulp.task('less', function () {
 
 
 gulp.task('watch', ['build'], function() {
-    gulp.watch(config.allTypeScript, ['ts-lint', 'compile-ts', 'gen-ts-refs']);
+    gulp.watch(config.allTypeScript, ['compile-ts', 'gen-ts-refs']);
     gulp.watch(config.lessDir, ['less']);
     gulp.watch(config.assets, ['assets']);
 });
 
-gulp.task('build', ['bower', 'less', 'ts-lint', 'compile-ts', 'assets']);
+gulp.task('build', ['bower', 'less', 'compile-ts', 'assets']);
 
 gulp.task('serve', ['watch'], function() {
 //    gulp.start();
