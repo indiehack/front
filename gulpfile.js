@@ -106,6 +106,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch(config.allTypeScript, ['compile-ts', 'gen-ts-refs']);
     gulp.watch(config.lessDir, ['less']);
     gulp.watch(config.assets, ['assets']);
+    gulp.watch('bower.json', ['bower']);
 });
 
 gulp.task('build', ['bower', 'less', 'compile-ts', 'assets']);
