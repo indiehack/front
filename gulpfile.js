@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp'),
+var gulp = require('gulp-help')(require('gulp')),
     debug = require('gulp-debug'),
     inject = require('gulp-inject'),
     concat = require('gulp-concat'),
@@ -35,13 +35,13 @@ gulp.task('gen-ts-refs', function () {
         transform: function (filepath) {
             return '/// <reference path="../..' + filepath + '" />';
         }
-    })).pipe(gulp.dest(config.typings));
+    })).pipe(gulp.dest(config.libraryTypeScriptDefinitions));
 });
 
 /**
  * Lint all custom TypeScript files.
  */
-gulp.task('ts-lint', function () {
+gulp.task('ts-lint', 'Lint all custom TypeScript files.', function () {
     return gulp.src(config.allTypeScript)
         .pipe(tslint())
         .pipe(tslint.report('prose'));
@@ -50,7 +50,7 @@ gulp.task('ts-lint', function () {
 /**
  * Compile TypeScript and include references to library and app .d.ts files.
  */
-gulp.task('compile-ts', function () {
+gulp.task('compile-ts', 'Compile TypeScript and include references to library and app .d.ts files.', function () {
     var sourceTsFiles = [config.allTypeScript,                //path to typescript files
                          config.libraryTypeScriptDefinitions, //reference to library .d.ts files
                          config.appTypeScriptReferences];     //reference to app.d.ts files
@@ -61,7 +61,6 @@ gulp.task('compile-ts', function () {
                            target: 'ES5',
                            declarationFiles: false,
                            noExternalResolve: true,
-                           sortOutput: true,
                            out : 'app.js'
                        }));
 
@@ -74,7 +73,7 @@ gulp.task('compile-ts', function () {
 /**
  * Remove all generated JavaScript files from TypeScript compilation.
  */
-gulp.task('clean-ts', function (cb) {
+gulp.task('clean-ts', 'Remove all generated JavaScript files from TypeScript compilation.', function (cb) {
   var typeScriptGenFiles = [config.tsOutputPath,            // path to generated JS files
                             config.sourceApp +'**/*.js',    // path to all JS files auto gen'd by editor
                             config.sourceApp +'**/*.js.map' // path to all sourcemap files auto gen'd by editor
@@ -83,17 +82,20 @@ gulp.task('clean-ts', function (cb) {
   del(typeScriptGenFiles, cb);
 });
 
-gulp.task('assets', function() {
+/**
+ * Copy stuff from the assets folder.
+ */
+gulp.task('assets', 'Copy stuff from the assets folder', function() {
     return gulp.src(config.assets)
         .pipe(gulp.dest(config.public));
 });
 
-gulp.task('bower', function() {
+gulp.task('bower', 'Include bower stuff', function() {
     return bower()
         .pipe(gulp.dest(config.publicJsComponentsDir));
 });
 
-gulp.task('less', function () {
+gulp.task('less', 'Less -> css', function () {
     return gulp.src(config.allLessFiles)
         .pipe(less())
         .pipe(minifyCss())
@@ -102,16 +104,15 @@ gulp.task('less', function () {
 });
 
 
-gulp.task('watch', ['build'], function() {
-    gulp.watch(config.allTypeScript, ['compile-ts', 'gen-ts-refs']);
+gulp.task('watch', 'Watch for changes and build it all.' , ['build'], function() {
+    gulp.watch(config.allTypeScript, ['ts-lint', 'compile-ts', 'gen-ts-refs']);
     gulp.watch(config.lessDir, ['less']);
     gulp.watch(config.assets, ['assets']);
-    gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('build', ['bower', 'less', 'compile-ts', 'assets']);
+gulp.task('build', 'Build it once', ['bower', 'less', 'ts-lint', 'compile-ts', 'assets']);
 
-gulp.task('serve', ['watch'], function() {
+gulp.task('serve', 'Serve the generated stuff.', ['watch'], function() {
 //    gulp.start();
     gulp.src(config.public)
         .pipe($.webserver({
@@ -121,4 +122,4 @@ gulp.task('serve', ['watch'], function() {
         }));
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', 'When ran as "gulp" without exta task, it will run the server.', ['serve']);
