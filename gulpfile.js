@@ -35,7 +35,7 @@ gulp.task('gen-ts-refs', function () {
         transform: function (filepath) {
             return '/// <reference path="../..' + filepath + '" />';
         }
-    })).pipe(gulp.dest(config.typings));
+    })).pipe(gulp.dest(config.libraryTypeScriptDefinitions));
 });
 
 /**

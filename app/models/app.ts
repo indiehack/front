@@ -1,4 +1,10 @@
-/// <reference path="tools.ts" />
+/// <reference path='../typings/angular/angular.d.ts' />
+/// <reference path='controller.ts' />
 
-var tool = new Tools.Tool();
-tool.doSomething();
+module demoApp {
+    'use strict';
+
+    angular
+        .module('demo-app', [])
+        .controller('DemoController', DemoController);
+}

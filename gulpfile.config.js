@@ -8,13 +8,12 @@ var GulpConfig = (function () {
 
         this.tsOutputPath = this.public + '/js';
         this.allJavaScript = [this.source + '/js/**/*.js'];
-        this.allTypeScript = this.sourceApp + '/**/*.ts';
+        this.allTypeScript = this.sourceApp + '/models/**/*.ts';
         this.publicJsComponentsDir = this.public + '/' + 'js_components';
         this.allLessFiles = this.sourceApp + '/**/*.less';
         this.compiledCssDir = this.public + '/css';
 
-        this.typings = './tools/typings/';
-        this.libraryTypeScriptDefinitions = './tools/typings/**/*.ts';
+        this.libraryTypeScriptDefinitions = this.sourceApp +'/typings/**/*.ts';
         this.appTypeScriptReferences = this.typings + 'typescriptApp.d.ts';
     }
     return GulpConfig;

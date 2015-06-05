@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" ng-app="demo-app" data-framework="typescript">
 <head>
-    <title>Hackaton</title>
+    <meta charset="utf-8">
+    <title>Typescript & AngularJS</title>
+    <style>[ng-cloak] { display: none; }</style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <h1>Hello world !</h1>
-    <h2>How are you ?</h2>
+<body ng-controller="DemoController" class="ng-cloak">
+
+<div class="main">
+    Name : {{name}}
+</div>
+<div>
+    <input ng-model="name">
+</div>
+
+
+<script src="js_components/angular/angular.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
