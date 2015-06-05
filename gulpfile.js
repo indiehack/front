@@ -12,6 +12,7 @@ var gulp = require('gulp-help')(require('gulp')),
     less = require('gulp-less'),
     minifyCss = require('gulp-minify-css'),
     //batch = require('gulp-batch'),
+    concatVendor = require('gulp-concat-vendor'),
     Config = require('./gulpfile.config');
 
 var config = new Config();
@@ -91,7 +92,9 @@ gulp.task('assets', 'Copy stuff from the assets folder', function() {
 });
 
 gulp.task('bower', 'Include bower stuff', function() {
-    return bower()
+    bower();
+    return gulp.src('./bower_components/*')
+        .pipe(concatVendor('vendor.js'))
         .pipe(gulp.dest(config.publicJsComponentsDir));
 });
 
