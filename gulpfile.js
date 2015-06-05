@@ -12,6 +12,7 @@ var gulp = require('gulp-help')(require('gulp')),
     less = require('gulp-less'),
     minifyCss = require('gulp-minify-css'),
     //batch = require('gulp-batch'),
+    concatVendor = require('gulp-concat-vendor'),
     Config = require('./gulpfile.config');
 
 var config = new Config();
@@ -35,7 +36,7 @@ gulp.task('gen-ts-refs', function () {
         transform: function (filepath) {
             return '/// <reference path="../..' + filepath + '" />';
         }
-    })).pipe(gulp.dest(config.typings));
+    })).pipe(gulp.dest(config.libraryTypeScriptDefinitions));
 });
 
 /**
@@ -91,7 +92,9 @@ gulp.task('assets', 'Copy stuff from the assets folder', function() {
 });
 
 gulp.task('bower', 'Include bower stuff', function() {
-    return bower()
+    bower();
+    return gulp.src('./bower_components/*')
+        .pipe(concatVendor('vendor.js'))
         .pipe(gulp.dest(config.publicJsComponentsDir));
 });
 
@@ -108,6 +111,8 @@ gulp.task('watch', 'Watch for changes and build it all.' , ['build'], function()
     gulp.watch(config.allTypeScript, ['ts-lint', 'compile-ts', 'gen-ts-refs']);
     gulp.watch(config.lessDir, ['less']);
     gulp.watch(config.assets, ['assets']);
+    gulp.watch('./bower.json', ['bower']);
+
 });
 
 gulp.task('build', 'Build it once', ['bower', 'less', 'ts-lint', 'compile-ts', 'assets']);
